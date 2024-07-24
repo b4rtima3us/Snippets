@@ -23,7 +23,7 @@ def snippets_page(request):
 def render_snippet(request, item_id):
     try:
         item = Snippet.objects.get(id=item_id)
-        return render(request, 'pages/snippet_page.html', {'items': item})
+        return render(request, 'pages/snippet_page.html', {'item': item})
     except ObjectDoesNotExist:
         return HttpResponse("Snippet not found")
 
