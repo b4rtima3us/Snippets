@@ -34,7 +34,7 @@
                     {% for item in items %}
                         <tr>
                             <td scope="row">1</td>
-                            <td><a href="/snippets/1">{{ item.name }}</a></td>
+                            <td><a href="{% url 'snippet' item.id %}">{{ item.name }}</a></td>
                             <td>{{ item.creation_date }}</td>
                         </tr>
                     {% endfor %}
