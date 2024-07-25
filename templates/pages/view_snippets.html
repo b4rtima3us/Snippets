@@ -35,7 +35,7 @@
                         <tr>
                             <td scope="row">1</td>
                             <td><a href="{% url 'snippet' item.id %}">{{ item.name }}</a></td>
-                            <td>{{ item.creation_date }}</td>
+                            <td>{{ item.creation_date | date:"Y-m-d H:i:s" }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
