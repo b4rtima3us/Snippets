@@ -1,8 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+from django.contrib import auth
 from MainApp.models import Snippet
 from MainApp.forms import SnippetForm
-from django.core.exceptions import ObjectDoesNotExist
 
 
 def index_page(request):
@@ -68,3 +68,23 @@ def render_snippet_list(request):
 def render_snippet_page(request, item_id):
     item = get_object_or_404(Snippet, id=item_id)
     return render(request, 'pages/snippet_page.html', {'item': item})
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        # print("username =", username)
+        # print("password =", password)
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+        else:
+            # Return error message
+            pass
+    return redirect('main')
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('main')
