@@ -15,7 +15,11 @@
         <div class="col">
             <form action='' method="post">
                 {% csrf_token %}
-                    {{ form.as_p }}
+                    {{ form.name }}
+                    {{ form.lang }} <br>
+                    Public snippet
+                    {{ form.public }}
+                    {{ form.code }}
                 <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
             </form>
         </div>
