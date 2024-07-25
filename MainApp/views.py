@@ -29,13 +29,13 @@ def add_snippet_page(request):
         return render(request, 'pages/add_snippet.html', {'form': form})
 
 
-def snippets_page(request):
+def render_snippet_list(request):
     items = Snippet.objects.all()
     context = {'items': items}
-    return render(request, 'pages/view_snippets.html', context)
+    return render(request, 'pages/snippet_list.html', context)
 
 
-def render_snippet(request, item_id):
+def render_snippet_page(request, item_id):
     try:
         item = Snippet.objects.get(id=item_id)
         return render(request, 'pages/snippet_page.html', {'item': item})
