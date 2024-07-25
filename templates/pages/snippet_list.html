@@ -14,21 +14,14 @@
 
         <div class="row">
             <div class="col">
-                <p>На данной страницы будут отображаться все созданные сниппеты.</p>
-                <p>Пока тут просто пример, но скоро заменим реальными сниппетами из БД!</p>
-                <hr>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
                 <table class="table table-striped">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Дата создания</th>
-                        <th scope="col"> </th>
+                        <th scope="col">Действия</th>
+                        <th scope="col">Пользователь</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,6 +46,7 @@
                                     <i style="color:red" class="fa fa-trash"></i>
                                 </a>
                             </td>
+                            <td>{{ item.user.username }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
