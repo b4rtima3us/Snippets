@@ -64,7 +64,7 @@ def snippet_edit(request, item_id):
 
 def render_snippet_list(request):
     if request.method == 'GET':
-        items = Snippet.objects.all()
+        items = Snippet.objects.filter(public=True)
         context = {'items': items}
         return render(request, 'pages/snippet_list.html', context)
 
