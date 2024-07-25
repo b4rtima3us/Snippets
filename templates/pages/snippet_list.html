@@ -28,14 +28,16 @@
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
                         <th scope="col">Дата создания</th>
+                        <th scope="col"> </th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in items %}
                         <tr>
-                            <td scope="row">1</td>
+                            <td scope="row">{{ item.id }}</td>
                             <td><a href="{% url 'snippet' item.id %}">{{ item.name }}</a></td>
                             <td>{{ item.creation_date | date:"Y-m-d H:i:s" }}</td>
+                            <td><a href="{% url 'snippet_delete' item.id %}"><i class="fa fa-trash"></i></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

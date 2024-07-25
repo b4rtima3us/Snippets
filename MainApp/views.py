@@ -29,11 +29,23 @@ def add_snippet_page(request):
         return render(request, 'pages/add_snippet.html', {'form': form})
 
 
-def render_snippet_list(request):
-    items = Snippet.objects.all()
-    context = {'items': items}
-    return render(request, 'pages/snippet_list.html', context)
+def snippet_delete(request, item_id):
+    try:
+        item = Snippet.objects.get(id=item_id)
+        item.delete()
+        return redirect("snippet_list")  # GET snippets/list
+    except ObjectDoesNotExist:
+        return HttpResponse("Snippet not found")
 
+
+def render_snippet_list(request):
+    if request.method == 'GET':
+        items = Snippet.objects.all()
+        context = {'items': items}
+        return render(request, 'pages/snippet_list.html', context)
+    if request.method == 'POST':
+        print(request.__dict__)
+        return HttpResponse("Snippet not found")
 
 def render_snippet_page(request, item_id):
     try:
