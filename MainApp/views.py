@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 from MainApp.models import Snippet
 from MainApp.forms import SnippetForm
 
