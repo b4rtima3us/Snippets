@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib import auth
+from django.core.exceptions import ObjectDoesNotExist
 from MainApp.models import Snippet
 from MainApp.forms import SnippetForm
 
@@ -71,6 +72,15 @@ def render_snippet_list(request):
 def render_snippet_page(request, item_id):
     item = get_object_or_404(Snippet, id=item_id)
     return render(request, 'pages/snippet_page.html', {'item': item})
+
+
+def render_my_snippets(request, user_id):
+    items = Snippet.objects.filter(user_id=user_id)
+    context = {
+        'pagename': items[0].user,
+        'items': items
+    }
+    return render(request, 'pages/my_snippets.html', context)
 
 
 def login(request):
