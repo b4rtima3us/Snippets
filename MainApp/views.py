@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from MainApp.models import Snippet
+from MainApp.models import Snippet, User
 from MainApp.forms import SnippetForm
 
 
@@ -12,6 +12,7 @@ def index_page(request):
     return render(request, 'pages/index.html', context)
 
 
+@login_required(login_url='main')
 def add_snippet_page(request):
     # создаем пустую форму при запросе гет
     if request.method == 'GET':
@@ -42,23 +43,26 @@ def snippet_delete(request, item_id):
 
 def snippet_edit(request, item_id):
     item = get_object_or_404(Snippet, id=item_id)
-    if request.method == "GET":
-        context = {
-            'item': item,
-            'type': 'edit'
-        }
-        return render(request, 'pages/snippet_page.html', context)
+    # Example 1
+    # if request.method == "GET":
+    #     context = {
+    #         'item': item,
+    #         'type': 'edit'
+    #     }
+    #     return render(request, 'pages/snippet_page.html', context)
 
     # Example 2
-    # if request.method == "GET":
-    #     form = SnippetForm(instance=item)
-    #     return render(request, 'pages/add_snippet.html', {'form': form})
+    if request.method == "GET":
+        form = SnippetForm(instance=item)
+        return render(request, 'pages/add_snippet.html', {'form': form})
 
-    # Example 1
     if request.method == "POST":
         form = request.POST
+        print(form)
+
         item.name = form['name']
         item.code = form['code']
+        item.public = True if 'public' in form else False
         item.save()
         return redirect("snippet_list")  # GET snippets/list
 
@@ -78,7 +82,7 @@ def render_snippet_page(request, item_id):
 def render_my_snippets(request, user_id):
     items = Snippet.objects.filter(user_id=user_id)
     context = {
-        'pagename': items[0].user,
+        'pagename': User.objects.get(id=user_id).username,
         'items': items
     }
     return render(request, 'pages/my_snippets.html', context)

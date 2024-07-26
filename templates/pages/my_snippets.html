@@ -30,17 +30,9 @@
                             <td><a href="{% url 'snippet' item.id %}">{{ item.name }}</a></td>
                             <td>{{ item.creation_date | date:"Y-m-d H:i:s" }}</td>
                             <td>
-<!--                                <form action="{% url 'snippet' item.id %}" method='post'>-->
-<!--                                    {% csrf_token %}-->
-<!--                                    <button type="submit" class="btn btn-info">Edit</button>-->
-<!--                                </form>-->
-                                <a href="{% url 'snippet' item.id %}">
+                                <a href="{% url 'snippet_edit' item.id %}">
                                     <i class="fa fa-edit"></i>
                                 </a>
-<!--                                <form action="{% url 'snippet_delete' item.id %}" method='post'>-->
-<!--                                    {% csrf_token %}-->
-<!--                                    <button type="submit" class="btn btn-danger">Delete</button>-->
-<!--                                </form>-->
                                 <a href="{% url 'snippet_delete' item.id %}">
                                     <i style="color:red" class="fa fa-trash"></i>
                                 </a>

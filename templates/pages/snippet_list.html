@@ -22,6 +22,7 @@
                         <th scope="col">Дата создания</th>
                         <th scope="col">Действия</th>
                         <th scope="col">Пользователь</th>
+                        <th scope="col">Тип</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,23 +34,34 @@
                                 <td>{{ item.creation_date | date:"Y-m-d H:i:s" }}</td>
                                 <td>
                                     {% if request.user.is_authenticated and item.user.id == request.user.id  %}
+                                    {{ comment }}
     <!--                                <form action="{% url 'snippet' item.id %}" method='post'>-->
     <!--                                    {% csrf_token %}-->
     <!--                                    <button type="submit" class="btn btn-info">Edit</button>-->
     <!--                                </form>-->
-                                    <a href="{% url 'snippet' item.id %}">
+                                    {{ endcomment }}
+                                    <a href="{% url 'snippet_edit' item.id %}">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                    {{ comment }}
     <!--                                <form action="{% url 'snippet_delete' item.id %}" method='post'>-->
     <!--                                    {% csrf_token %}-->
     <!--                                    <button type="submit" class="btn btn-danger">Delete</button>-->
     <!--                                </form>-->
+                                    {{ endcomment }}
                                     <a href="{% url 'snippet_delete' item.id %}">
                                         <i style="color:red" class="fa fa-trash"></i>
                                     </a>
                                     {% endif %}
                                 </td>
                                 <td>{{ item.user.username }}</td>
+                                <td>
+                                    {% if item.public %}
+                                        Public
+                                    {% else %}
+                                        Private
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endif %}
                     {% endfor %}
