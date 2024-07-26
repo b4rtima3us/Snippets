@@ -58,11 +58,9 @@ def snippet_edit(request, item_id):
 
     if request.method == "POST":
         form = request.POST
-        print(form)
-
         item.name = form['name']
         item.code = form['code']
-        item.public = True if 'public' in form else False
+        item.public = form.get('public', False)
         item.save()
         return redirect("snippet_list")  # GET snippets/list
 
