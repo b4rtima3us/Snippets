@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from MainApp.models import Snippet, User
-from MainApp.forms import SnippetForm
+from MainApp.forms import SnippetForm, UserRegistrationForm
 
 
 def index_page(request):
@@ -84,6 +84,20 @@ def render_my_snippets(request, user_id):
         'items': items
     }
     return render(request, 'pages/my_snippets.html', context)
+
+
+def create_user(request):
+    if request.method == "GET":
+        form = UserRegistrationForm(request.POST)
+        return render(request, 'pages/registration.html', {'form': form})
+
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            return redirect("main")  # GET snippets/list
+        return render(request, 'pages/registration.html', {'form': form})
 
 
 def login(request):
